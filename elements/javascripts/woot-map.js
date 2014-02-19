@@ -98,7 +98,6 @@ Polymer('woot-map', {
         me.map.addLayer( me.bufferLineLayer );
         
         // Add VRBO Layer
-        alert('WTF'); 
         me.vrboLayer = new FeatureLayer( 'http://koop.dc.esri.com:8080/vrbo/-106.092/38.494/-105.854/38.58/FeatureServer/0', {
           mode: esri.layers.FeatureLayer.MODE_SNAPSHOT,
           outFields: ['*']
@@ -130,11 +129,56 @@ Polymer('woot-map', {
     });
   },
   onVrboLayerUpdated: function () {
+    var self = this;
     this.vrboLayer.graphics.forEach(function(point){
       if (point.attributes.AverageReview == 45) {
         point.attributes.AverageReview = 4.5;
       }
+      var priceObj = self._parsePrice(point.attributes.PriceRange);
+      point.attributes.minPrice = priceObj.min;
+      point.attributes.maxPrice = priceObj.max;
+      point.attributes.Bedrooms = parseInt(point.attributes.Bedrooms);
+      point.attributes.Sleeps   = parseInt(point.attributes.Sleeps);
+
     });
+  },
+    /**
+   * parse the price values from 
+   * @param  {[type]} priceString [description]
+   * @return {[type]}             [description]
+   */
+  _parsePrice: function(priceString){
+    var price ={min:0, max:0};
+    if(priceString !== ''){
+      var noDollars = priceString.replace(/\$/g,'');
+      var parts = noDollars.split(' ');
+      
+      if(parts.length){
+        
+        parts.forEach(function(part){
+
+          if(parseInt(part)){
+            var num = parseInt(part);
+            if(price.min === 0){
+              price.min = num;
+            }else{
+              price.max = num;
+            }
+          }
+        });
+      }else{
+        price.min = parseInt(noDollars) || 100;
+        price.max = parseInt(noDollars) || 110;
+      }
+    }else{
+      price.min = 100;
+      price.max = 120;
+    }
+    
+
+    return price;
+
+
   },
   showMessage: function (msg) {
     //public method!
