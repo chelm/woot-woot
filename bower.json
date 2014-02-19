@@ -5,8 +5,7 @@
     "sass-bootstrap": "~3.0.0",
     "platform": "Polymer/platform#master",
     "polymer": "Polymer/polymer#master",
-    "chartjs": "*",
-    "polymer-ui-ratings": "Polymer/polymer-ui-ratings#~0.2.0"
+    "chartjs": "*"
   },
   "devDependencies": {}
 }
