@@ -98,7 +98,6 @@ Polymer('woot-map', {
         me.map.addLayer( me.bufferLineLayer );
         
         // Add VRBO Layer
-        alert('WTF'); 
         me.vrboLayer = new FeatureLayer( 'http://koop.dc.esri.com:8080/vrbo/-106.092/38.494/-105.854/38.58/FeatureServer/0', {
           mode: esri.layers.FeatureLayer.MODE_SNAPSHOT,
           outFields: ['*']
