@@ -84,7 +84,7 @@ Polymer('woot-map', {
 
 
         // Add Trail layer #1
-        me.trailsLayer = new FeatureLayer( "http://services1.arcgis.com/ohIVh2op2jYT7sku/arcgis/rest/services/SouthShoreTrails/FeatureServer/0", {
+        me.trailsLayer = new FeatureLayer( "http://services.arcgis.com/bkrWlSKcjUDFDtgw/arcgis/rest/services/ark_merge/FeatureServer/0", {
           className: 'trails',
           mode: esri.layers.FeatureLayer.MODE_ONDEMAND,
           outFields: ["*"]
@@ -93,23 +93,13 @@ Polymer('woot-map', {
         me.trailsLayer.on('click', function (e) { me._lineClick(e); });
         me.map.addLayer( me.trailsLayer );
 
-
-        // Trail Layer #2
-        me.trailsLayer2 = new FeatureLayer( "http://services1.arcgis.com/ohIVh2op2jYT7sku/arcgis/rest/services/ValleyFloor_Trails/FeatureServer/0", {
-          className: 'trails',
-          mode: esri.layers.FeatureLayer.MODE_ONDEMAND,
-          outFields: ["*"]
-        });
-        me.trailsLayer2.setRenderer( trailStyle );
-        me.trailsLayer2.on('click', function (e) { me._lineClick(e); });
-        me.map.addLayer( me.trailsLayer2 );
-
         // add buffer lines here 
         me.bufferLineLayer = new GraphicsLayer({ "id": "buffer-lines" });
         me.map.addLayer( me.bufferLineLayer );
         
-        // Add VRBO Layer 
-        me.vrboLayer = new FeatureLayer( 'http://koop.dc.esri.com:8080/vrbo/-116.997/34.225/-116.785/34.265/FeatureServer/0', {
+        // Add VRBO Layer
+        alert('WTF'); 
+        me.vrboLayer = new FeatureLayer( 'http://koop.dc.esri.com:8080/vrbo/-106.092/38.494/-105.854/38.58/FeatureServer/0', {
           mode: esri.layers.FeatureLayer.MODE_SNAPSHOT,
           outFields: ['*']
         });
